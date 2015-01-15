@@ -34,7 +34,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 # gem 'capistrano-rails', group: :development
 
 group :production do
-  gem pg
+  gem "pg"
 end
 
 group :development, :test do
