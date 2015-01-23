@@ -2,7 +2,7 @@ class FaqController < ApplicationController
 
   def index
     @what = CommonQuestion.new
-      @what.question = "What is gSchool?"
+      @what.question = "What is gCamp?"
       @what.answer = "gCamp is an awesome tool that is going to change your life. gCamp is your one stop shop to organize all your tasks.  You'll aslo be able to track comments that you and others make. gCamp may eventually replace all need for paper and pens in the entire world. Well, mayne pot, but it's going to be pretty cool."
       @what.slug = "what-is-gschool"
     @how = CommonQuestion.new
