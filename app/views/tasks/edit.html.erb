@@ -2,10 +2,14 @@
   <div class="container">
     <div class="page-header"><h1>Editing Task</h1></div>
 
+    <ol class="breadcrumb">
+      <li><%= link_to 'Tasks', tasks_path %></li>
+      <li class="active"><%= @task.description %></li>
+    </ol>
+
 <%= render 'form' %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+
 
 </div>
 </body>
