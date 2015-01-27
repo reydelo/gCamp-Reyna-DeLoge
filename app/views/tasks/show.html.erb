@@ -1,18 +1,18 @@
 <body>
   <div class="container">
     <div class="page-header">
+      <div class="pull-right">
+        <a class="btn btn-info"<%= link_to 'Edit', edit_task_path %>
+        </div>
       <h1><%= @task.description %></h1>
     </div>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<ol class="breadcrumb">
+  <li><%= link_to 'Tasks', tasks_path %></li>
+  <li class="active"><%= @task.description %></li>
+</ol>
 
 </div>
 </body>
