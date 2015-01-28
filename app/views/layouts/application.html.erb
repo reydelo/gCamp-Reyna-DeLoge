@@ -8,9 +8,7 @@
 </head>
 <body id="top">
 
-<% if notice %>
-<div class="alert alert-success"><%= notice %></div>
-<% end %>
+
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -19,6 +17,11 @@
     </div>
   </div>
 </div>
+<% if notice %>
+<div class="container">
+  <div class="alert alert-success"><%= notice %></div>
+</div>
+<% end %>
 <%= yield %>
       <div class="container">
       <footer>

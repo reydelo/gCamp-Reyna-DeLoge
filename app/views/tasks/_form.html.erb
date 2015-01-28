@@ -1,62 +1,63 @@
-<body>
-  <div class="container">
-<%= form_for(@task, html: {class:"form-horizontal"}) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= form_for(@task, html: {class: "form-horizontal"}) do |f| %>
+<% if @task.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
-      <% @task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<!-- <form class="form-horizontal" id="new_task" method="post" action="/tasks">
-  <div style="display:none">
-  </div>
-  <div class="form-group">
-  </div>
-  <div class="form-group">
-    <label class="control-label col-md-2" for="task_description">Description</label>
-    <div class="form-controls col-md-4">
-      <input class="form-control" id="task_description" name="task[description]" type="text">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-4">
-      <input class="btn btn-primary" name="commit" type="submit" value="Create Task">
-      <a class="btn btn-default" href="/tasks">cancel</a>
-    </div>
-  </div>
-</form> -->
-
-
-
-
-
-  <div class="form-group">
-  <div class="field">
-    <div class="control-label col-md-2">
-      <%= f.label :description %>
-    </div>
-    <div class="col-md-4">
-        <%= f.text_field :description, class: "form-control" %>
-    </div>
-  </div>
+  <ul>
+    <% @task.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
 </div>
-
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-4">
-      <%= f.submit "Create Task", class: "btn btn-primary btn-md active" %>
-      <%= f.button link_to('Cancel', tasks_path), class: "btn btn-default btn-md active" %>
-    </div>
-  </div>
-
 <% end %>
 
-
+<div class="form-group">
+  <div class = "field">
+    <div class = "control-label col-md-2">
+      <%= f.label :description %>
+    </div>
+  </div>
+  <div class= "col-md-4">
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
 </div>
-</body>
+
+<div class="form-group">
+  <div class = "field">
+    <div class = "control-label col-md-2">
+      <%= f.label :due_date %>
+    </div>
+  </div>
+  <div class= "col-md-4">
+    <%= f.date_select :date, class: "form-control" %>
+  </div>
+</div>
+
+<% if @task.description != nil %>
+
+<div class="form-group">
+  <div class = "field">
+    <div class = "control-label col-md-2">
+      <%= f.label :completed %>
+    </div>
+    <div class= "col-md-4">
+    <%= f.check_box :complete %>
+  </div>
+
+
+  </div>
+</div>
+<% end %>
+
+<div class="form-group">
+  <div class="col-md-4 col-md-offset-2">
+    <div class="action">
+      <%= f.submit  "Create Task", class: "btn btn-primary" %>
+      <a class= "btn btn-default" href= "/tasks">Cancel</a>
+    </div>
+  </div>
+</div>
+
+
+
+<% end %>
