@@ -17,12 +17,15 @@
     </div>
   </div>
 </div>
-<% if notice %>
+
 <div class="container">
-  <div class="alert alert-success"><%= notice %></div>
+<% if notice %>
+  <div class="alert alert-success"><strong><%= notice %></strong></div>
 </div>
 <% end %>
+
 <%= yield %>
+
       <div class="container">
       <footer>
         <div class="row">

@@ -13,6 +13,9 @@
   <li><%= link_to 'Tasks', tasks_path %></li>
   <li class="active"><%= @task.description %></li>
 </ol>
-
+<div>
+  <strong>Due On:</strong>
+    <%= @task.date %>
+  </div>
 </div>
 </body>
