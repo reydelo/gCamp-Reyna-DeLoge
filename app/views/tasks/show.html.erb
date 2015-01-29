@@ -15,7 +15,7 @@
 </ol>
 <div>
   <strong>Due On:</strong>
-    <%= @task.date %>
+    <%= @task.date.to_s.gsub("-","/") %>
   </div>
 </div>
 </body>
