@@ -41,7 +41,11 @@
       <%= f.label :completed %>
     </div>
     <div class= "col-md-4">
+      <% if @task.complete == true %>
+      <%= f.check_box :complete, { :checked => 'checked'} %>
+      <% else %>
     <%= f.check_box :complete %>
+    <% end %>
   </div>
 
 
