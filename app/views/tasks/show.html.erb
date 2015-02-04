@@ -1,21 +1,24 @@
 <body>
   <div class="container">
+
     <div class="page-header">
       <div class="pull-right">
         <a class="btn btn-info"<%= link_to 'Edit', edit_task_path %>
-        </div>
+      </div>
       <h1><%= @task.description %></h1>
     </div>
 
 
 
-<ol class="breadcrumb">
-  <li><%= link_to 'Tasks', tasks_path %></li>
-  <li class="active"><%= @task.description %></li>
-</ol>
-<div>
-  <strong>Due On:</strong>
-    <%= @task.date.to_s.gsub("-","/") %>
+    <ol class="breadcrumb">
+      <li><%= link_to 'Tasks', tasks_path %></li>
+      <li class="active"><%= @task.description %></li>
+    </ol>
+
+    <div>
+      <strong>Due On:</strong>
+      <%= @task.date.to_s.gsub("-","/") %>
+    </div>
+
   </div>
-</div>
 </body>

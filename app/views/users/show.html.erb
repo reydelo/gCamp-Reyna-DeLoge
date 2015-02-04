@@ -1,0 +1,23 @@
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="pull-right">
+        <a class="btn btn-info"<%= link_to 'Edit', edit_user_path %>
+      </div>
+      <h1><%= @user.full_name %></h1>
+    </div>
+
+    <ol class="breadcrumb">
+      <li><%= link_to 'Users', users_path %></li>
+      <li class="active"><%= @user.full_name %></li>
+    </ol>
+
+    <div>
+      <p><strong>First Name:</strong> <%= @user.first_name %></p>
+      <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+      <p><strong>Email:</strong> <%= @user.email %></p>
+    </div>
+
+  </div>
+</body>

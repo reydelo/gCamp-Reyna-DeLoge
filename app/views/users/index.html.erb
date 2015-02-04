@@ -18,7 +18,7 @@
   <tbody>
     <% @users.each do |u| %>
       <tr>
-        <td><%= u.first_name %> <%= u.last_name %></td>
+        <td><%= link_to u.full_name, user_path(u) %></td>
         <td><%= mail_to u.email %></td>
         <td><%= link_to 'edit', edit_user_path(u) %></td>
       </tr>
