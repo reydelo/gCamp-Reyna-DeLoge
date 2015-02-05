@@ -12,6 +12,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -20,7 +21,9 @@
       <tr>
         <td><%= link_to u.full_name, user_path(u) %></td>
         <td><%= mail_to u.email %></td>
-        <td><%= link_to 'edit', edit_user_path(u) %></td>
+        <td class="text-right"><%= link_to 'Edit', edit_user_path(u), class: "btn btn-info" %>
+        <a class="btn btn-danger"<%= link_to 'Delete', u, method: :delete, data: { confirm: 'Are you sure?'} %>
+        </td>
       </tr>
     <% end %>
   </tbody>
