@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'terms' => 'terms#index'
   get 'faq' => 'faq#index'
   get 'tasks' => 'tasks#index'
+  get 'projects' => 'projects#index'
 
 
   # Example of regular route:
