@@ -1,0 +1,19 @@
+<body>
+  <div class="container">
+
+    <div class="page-header">
+      <div class="pull-right">
+        <a class="btn btn-info"<%= link_to 'Edit', edit_project_path %>
+          <a class="btn btn-danger"<%= link_to 'Delete', @project, :method => :delete %>
+      </div>
+      <h1><%= @project.name %></h1>
+    </div>
+
+    <ol class="breadcrumb">
+      <li><%= link_to 'Projects', projects_path %></li>
+      <li class="active"><%= @project.name %></li>
+    </ol>
+
+
+  </div>
+</body>
