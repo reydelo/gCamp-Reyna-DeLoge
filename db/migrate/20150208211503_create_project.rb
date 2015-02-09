@@ -1,5 +1,6 @@
 class CreateProject < ActiveRecord::Migration
   def change
-    add_column :projects, :name, :string
+    create_table :projects do |t|
+      t.string :name
   end
 end
