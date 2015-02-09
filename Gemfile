@@ -35,6 +35,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 
 group :production do
   gem "rails_12factor"
+  gem 'pg'
 end
 
 group :development, :test do
