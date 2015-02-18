@@ -42,7 +42,7 @@
       <%= f.submit class: "btn btn-primary" %>
       <a class= "btn btn-default" href= "/users">Cancel</a>
       <% if @user.id != nil %>
-      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?'}, class= "btn btn-danger" %>
+      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" %>
       <% end  %>
     </div>
   </div>
