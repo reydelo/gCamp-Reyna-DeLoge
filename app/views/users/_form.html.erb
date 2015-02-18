@@ -1,16 +1,6 @@
 <%= form_for(@user, html: {class: "form-horizontal"}) do |f| %>
 
-<% if @user.errors.any? %>
-<div id="error_explanation", class="alert alert-danger">
-  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
+<%= render partial: 'shared/error', locals: {object: @user} %>
 
 <div class="form-group">
   <div class = "field">
@@ -52,7 +42,7 @@
       <%= f.submit class: "btn btn-primary" %>
       <a class= "btn btn-default" href= "/users">Cancel</a>
       <% if @user.id != nil %>
-      <a class= "btn btn-danger" <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?'} %></a>
+      <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?'}, class= "btn btn-danger" %>
       <% end  %>
     </div>
   </div>
