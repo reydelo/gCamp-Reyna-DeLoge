@@ -1,0 +1,36 @@
+<div class="container">
+<%= form_for(@user, url: signup_path, html: {class: "well col-md-4 col-md-offset-4"}) do |f| %>
+<% if @user.errors.any? %>
+  <div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for messgae in @user.errors.full_messages %>
+      <li> <%= message %> </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <h2>Sign Up for gCamp</h2>
+
+  <div><%= f.label :first_name %></div>
+  <div><%= f.text_field :first_name, class: "form-control" %></div>
+
+  <div><%= f.label :last_name %></div>
+    <div><%= f.text_field :last_name, class: "form-control" %></div>
+
+  <div><%= f.label :email %></div>
+    <div><%= f.text_field :email, class: "form-control" %></div>
+
+  <div><%= f.label :password %></div>
+    <div><%= f.password_field :password, class: "form-control" %></div>
+
+  <div><%= f.label :password_confirmation %></div>
+    <div><%= f.password_field :password_confirmation, class: "form-control" %></div>
+
+    <br>
+
+
+  <div><%= f.submit 'Sign Up', class: 'btn btn-primary' %></div>
+<% end %>
+</div>
