@@ -16,13 +16,19 @@
       <a class="navbar-brand" href="/">gCamp</a>
     </div>
     <div class="nav navbar-nav navbar-right">
-    <%= link_to 'Signup', '/signup', class: "navbar-brand" %>
-  </div>
+      <% if current_user %>
+      <%= link_to current_user.full_name, user_path(current_user), class: "navbar-brand" %>
+      <%= link_to 'Logout', '/logout', class: "navbar-brand" %>
+      <% else %>
+      <%= link_to "Register", '/signup', class: "navbar-brand" %>
+      <%= link_to 'Login', '/login', class: "navbar-brand" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
-<div class="container">
 <% if notice %>
+<div class="container">
   <div class="alert alert-success"><strong><center><%= notice %></center></strong></div>
 </div>
 <% end %>
