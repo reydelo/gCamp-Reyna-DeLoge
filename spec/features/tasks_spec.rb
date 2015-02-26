@@ -43,7 +43,7 @@ describe 'User can CRUD tasks' do
 
   scenario 'Users can show a task' do
 
-    @task = Task.create(:description => 'Throw a bday party', :date => '2015-05-25')
+    @task = Task.create(description: 'Throw a bday party', date: '2015-05-25')
     visit '/tasks'
     click_link 'Throw a bday party'
     expect(page).to have_content('Throw a bday party')
@@ -54,7 +54,7 @@ describe 'User can CRUD tasks' do
 
   scenario 'Users can delete a task' do
 
-    @task = Task.create(:description => 'Watch corey open presents', :date => '2015-05-13')
+    @task = Task.create(description: 'Watch corey open presents', date: '2015-05-13')
     visit '/tasks'
     click_on 'Delete'
     expect(page).to have_content('Task was successfully destroyed.')
