@@ -3,12 +3,10 @@
 
     <div class="page-header">
       <div class="pull-right">
-        <a class="btn btn-info"<%= link_to 'Edit', edit_task_path %>
+        <%= link_to 'Edit', edit_task_path, class: "btn btn-info" %>
       </div>
       <h1><%= @task.description %></h1>
     </div>
-
-
 
     <ol class="breadcrumb">
       <li><%= link_to 'Tasks', tasks_path %></li>
