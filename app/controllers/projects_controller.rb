@@ -1,4 +1,10 @@
 class ProjectsController < ApplicationController
+  before_filter :authenticate
+
+def authenticate
+  redirect_to(signup_path) unless current_user
+end
+
   def index
     @projects = Project.all
   end
