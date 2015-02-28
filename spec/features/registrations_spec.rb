@@ -3,10 +3,44 @@ describe 'User can CRUD users' do
 
   scenario 'Users can sign up' do
 
-    click_on 'Register'
+    visit '/signup'
     fill_in 'First name', with: 'Marky'
+    fill_in 'Last name', with: 'Mark'
+    fill_in 'Email', with: 'marky@mark.com'
+    fill_in 'Password', with: 'meow'
+    fill_in 'user[password_confirmation]', with: 'meow'
     click_on 'Sign Up'
-    expect(page).to have_content(')
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content('Welcome! You have successfully signed up')
+
+  end
+
+  scenario 'Users cannot sign up without a unique email' do
+
+    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+    visit '/signup'
+    fill_in 'First name', with: 'Rey'
+    fill_in 'Last name', with: 'DeLo'
+    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Password', with: 'meow'
+    fill_in 'user[password_confirmation]', with: 'meow'
+    click_on 'Sign Up'
+    expect(page.current_path).to eq signup_path
+    expect(page).to have_content('Email has already been taken')
+
+  end
+
+  scenario 'Users cannot sign up without a secure password' do
+
+    visit '/signup'
+    fill_in 'First name', with: 'R'
+    fill_in 'Last name', with: 'D'
+    fill_in 'Email', with: 'rd@gmail.com'
+    fill_in 'Password', with: 'mew'
+    fill_in 'user[password_confirmation]', with: 'meow'
+    click_on 'Sign Up'
+    expect(page.current_path).to eq signup_path
+    expect(page).to have_content("Password confirmation doesn\'t match Password")
 
   end
 
