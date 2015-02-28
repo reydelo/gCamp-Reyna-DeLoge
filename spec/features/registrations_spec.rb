@@ -1,7 +1,7 @@
 require 'rails_helper'
-describe 'User can CRUD users' do
+describe 'User can CRUD registrations/signup' do
 
-  scenario 'Users can sign up' do
+  scenario 'User can sign up' do
 
     visit '/signup'
     fill_in 'First name', with: 'Marky'
@@ -15,7 +15,7 @@ describe 'User can CRUD users' do
 
   end
 
-  scenario 'Users cannot sign up without a unique email' do
+  scenario 'User cannot sign up without a unique email' do
 
     User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/signup'
@@ -30,7 +30,7 @@ describe 'User can CRUD users' do
 
   end
 
-  scenario 'Users cannot sign up without a secure password' do
+  scenario 'User cannot sign up without a secure password' do
 
     visit '/signup'
     fill_in 'First name', with: 'R'
@@ -41,6 +41,58 @@ describe 'User can CRUD users' do
     click_on 'Sign Up'
     expect(page.current_path).to eq signup_path
     expect(page).to have_content("Password confirmation doesn\'t match Password")
+
+  end
+
+  scenario 'User can sign in' do
+
+    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+    visit '/login'
+    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Password', with: 'meow'
+    click_button 'Login'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content("Welcome back")
+
+  end
+
+  scenario 'User cannot sign in with invalid password/email' do
+
+    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+    visit '/login'
+    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Password', with: 'mew'
+    click_button 'Login'
+    expect(page.current_path).to eq login_path
+    expect(page).to have_content("Username or password is incorrect")
+
+  end
+
+  scenario 'User can view their show page' do
+
+    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+    visit '/login'
+    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Password', with: 'meow'
+    click_button 'Login'
+    click_link 'Reyna DeLoge'
+    expect(page).to have_content("Reyna DeLoge")
+    expect(page).to have_content("reyna.deloge@gmail.com")
+
+  end
+
+  scenario 'User can sign out successfully' do
+
+    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+    visit '/login'
+    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Password', with: 'meow'
+    click_button 'Login'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content("Welcome back")
+    click_on 'Logout'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content("You have successfully logged out")
 
   end
 
