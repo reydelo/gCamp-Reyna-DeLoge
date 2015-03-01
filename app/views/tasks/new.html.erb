@@ -1,9 +1,11 @@
 <body>
   <div class="container">
-    <div class="page-header"><h1>New Task</h1></div>
+    <div class="page-header"><h1>New Task for <%= @project.name %></h1></div>
 
     <ol class="breadcrumb">
-      <li><%= link_to 'Tasks', tasks_path %></li>
+      <li><%= link_to 'Projects', projects_path %></li>
+      <li><%= link_to @project.name, project_path(@project) %></li>
+      <li><%= link_to 'Tasks', project_tasks_path(@project) %></li>
       <li class="active">New Task</li>
     </ol>
 

@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  resources :tasks
+
   resources :users
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-  
+
   get '/signup' => 'registrations#new'
   post '/signup' => 'registrations#create'
 
