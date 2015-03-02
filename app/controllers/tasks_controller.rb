@@ -18,8 +18,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
-    @project = Project.find(params[:project_id])
   end
 
   def edit
@@ -37,8 +35,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
-    @project = Project.find(params[:project_id])
     if @task.update(task_params)
       redirect_to project_task_path(@project, @task), notice: 'Task was successfully updated.'
     else
@@ -47,8 +43,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-    @project = Project.find(params[:project_id])
     if @task.destroy
       redirect_to project_tasks_path(@project), notice: 'Task was successfully destroyed.'
     end
@@ -63,4 +57,5 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:description, :date, :complete, :project_id)
   end
+  
 end
