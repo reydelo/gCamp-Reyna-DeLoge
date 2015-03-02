@@ -39,7 +39,9 @@ class UsersController<ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if @user.destroy
+    if current_user == @user.destroy
+      redirect_to signup_path, notice: 'You have successfully destroyed your account. Please register to gain access.'
+    elsif @user.destroy
       redirect_to users_path, notice: 'User was successfully destroyed.'
     end
   end
