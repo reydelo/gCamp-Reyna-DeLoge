@@ -1,6 +1,11 @@
 require 'rails_helper'
 describe 'User can CRUD registrations/signup' do
 
+  before :each do
+
+    @user = User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
+  end
+
   scenario 'User can sign up' do
 
     visit '/signup'
@@ -17,11 +22,10 @@ describe 'User can CRUD registrations/signup' do
 
   scenario 'User cannot sign up without a unique email' do
 
-    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/signup'
     fill_in 'First name', with: 'Rey'
     fill_in 'Last name', with: 'DeLo'
-    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Email', with: "#{@user.email}"
     fill_in 'Password', with: 'meow'
     fill_in 'user[password_confirmation]', with: 'meow'
     click_on 'Sign Up'
@@ -46,10 +50,9 @@ describe 'User can CRUD registrations/signup' do
 
   scenario 'User can sign in' do
 
-    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/login'
-    fill_in 'Email', with: 'reyna.deloge@gmail.com'
-    fill_in 'Password', with: 'meow'
+    fill_in 'Email', with: "#{@user.email}"
+    fill_in 'Password', with: "#{@user.password}"
     click_button 'Login'
     expect(page.current_path).to eq root_path
     expect(page).to have_content("Welcome back")
@@ -58,9 +61,8 @@ describe 'User can CRUD registrations/signup' do
 
   scenario 'User cannot sign in with invalid password/email' do
 
-    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/login'
-    fill_in 'Email', with: 'reyna.deloge@gmail.com'
+    fill_in 'Email', with: "#{@user.email}"
     fill_in 'Password', with: 'mew'
     click_button 'Login'
     expect(page.current_path).to eq login_path
@@ -70,10 +72,9 @@ describe 'User can CRUD registrations/signup' do
 
   scenario 'User can view their show page' do
 
-    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/login'
-    fill_in 'Email', with: 'reyna.deloge@gmail.com'
-    fill_in 'Password', with: 'meow'
+    fill_in 'Email', with: "#{@user.email}"
+    fill_in 'Password', with: "#{@user.password}"
     click_button 'Login'
     click_link 'Reyna DeLoge'
     expect(page).to have_content("Reyna DeLoge")
@@ -83,10 +84,9 @@ describe 'User can CRUD registrations/signup' do
 
   scenario 'User can sign out successfully' do
 
-    User.create(first_name: 'Reyna', last_name: 'DeLoge', email: 'reyna.deloge@gmail.com', password: 'meow')
     visit '/login'
-    fill_in 'Email', with: 'reyna.deloge@gmail.com'
-    fill_in 'Password', with: 'meow'
+    fill_in 'Email', with: "#{@user.email}"
+    fill_in 'Password', with: "#{@user.password}"
     click_button 'Login'
     expect(page.current_path).to eq root_path
     expect(page).to have_content("Welcome back")

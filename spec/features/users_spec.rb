@@ -4,11 +4,11 @@ describe 'User can CRUD users' do
 
   before :each do
 
-    User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
+    @user = User.create(email: 'yeezus@god.com', password: 'touchdown', first_name: 'Kanye', last_name: 'West')
     visit '/'
     click_on 'Login'
-    fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
-    fill_in 'Password', :with => 'touchdown'
+    fill_in 'Email', :with => "#{@user.email}"
+    fill_in 'Password', :with => "#{@user.password}"
     click_button 'Login'
   end
 
@@ -43,21 +43,23 @@ describe 'User can CRUD users' do
 
   scenario 'Users can show a user' do
 
-    @user = User.create(first_name: 'Jon', last_name: 'Appleseed', email: 'jon@apple.com', password: 'secret', password_confirmation: 'secret')
     click_on 'Users'
-    click_link 'Jon Appleseed'
-    expect(page).to have_content('Jon Appleseed')
-    expect(page).to have_content('jon@apple.com')
+    within(:table) do
+      click_on "#{@user.first_name} #{@user.last_name}"
+    end
+    expect(page).to have_content("#{@user.first_name} #{@user.last_name}")
+    expect(page).to have_content("#{@user.email}")
   end
 
   scenario 'Users can delete a user' do
 
-    @user = User.create(first_name: 'Jon', last_name: 'Appleseed', email: 'jon@apple.com', password: 'secret', password_confirmation: 'secret')
     click_on 'Users'
-    click_link 'Jon Appleseed'
+    within(:table) do
+      click_on "#{@user.first_name} #{@user.last_name}"
+    end
     click_on 'Edit'
     click_on 'Delete'
-    expect(page).to have_content('User was successfully destroyed.')
+    expect(page).to have_content('You have successfully destroyed your account. Please register to gain access.')
   end
 
 end

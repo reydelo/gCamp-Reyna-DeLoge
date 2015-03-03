@@ -10,7 +10,7 @@ describe 'User can CRUD users' do
     fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
-    Project.create(name: 'gCamp - User 1')
+    @project = Project.create(name: 'gCamp - User 1')
     click_on 'Projects'
   end
 
@@ -24,8 +24,8 @@ describe 'User can CRUD users' do
 
   scenario 'Users can show/edit a project' do
 
-    click_on 'gCamp - User 1'
-    expect(page).to have_content('gCamp - User 1')
+    click_on "#{@project.name}"
+    expect(page).to have_content("#{@project.name}")
     click_on 'Edit'
     fill_in 'Name', with: 'gCamp by Reyna '
     click_on 'Update Project'
@@ -34,7 +34,7 @@ describe 'User can CRUD users' do
 
   scenario 'Users can delete a project' do
 
-  click_on 'gCamp - User 1'
+  click_on "#{@project.name}"
   click_on 'Delete'
   expect(page).to have_content('Project was successfully destroyed')
 end
