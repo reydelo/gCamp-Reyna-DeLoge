@@ -8,5 +8,6 @@ class Membership < ActiveRecord::Base
   def set_default_role
     role ||= :membership
   end
+  
 
 end

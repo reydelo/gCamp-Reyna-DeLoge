@@ -7,6 +7,20 @@ class MembershipsController < ApplicationController
     @membership = @project.memberships.new
   end
 
+  def create
+    @project = Project.find(params[:project_id])
+    @membership = @project.memberships.new(memberships_params)
+    @membership.project_id = params[:project_id]
+    @user = User.find_by(params[:id])
+    if @membership.save
+      redirect_to project_memberships_path(@project), notice: "#{@user.full_name} was successfully added"
+    else
+      render :index
+    end
+  end
+
+
+
   private
   def memberships_params
     params.require(:membership).permit(:user_id, :project_id, :role)
