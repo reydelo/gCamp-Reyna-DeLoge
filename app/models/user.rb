@@ -1,4 +1,7 @@
 class User<ActiveRecord::Base
+  has_many :memberships
+  has_many :projects, through: :memberships
+
   has_secure_password
 
   def full_name
@@ -6,4 +9,5 @@ class User<ActiveRecord::Base
   end
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
+
 end

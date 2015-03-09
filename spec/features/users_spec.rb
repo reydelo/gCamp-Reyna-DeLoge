@@ -4,7 +4,7 @@ describe 'User can CRUD users' do
 
   before :each do
 
-    @user = User.create(email: 'yeezus@god.com', password: 'touchdown', first_name: 'Kanye', last_name: 'West')
+    @user = User.create(email: 'yeezus@god.com', password: 'godeqlye', first_name: 'Kanye', last_name: 'West')
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => "#{@user.email}"
