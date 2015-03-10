@@ -14,7 +14,7 @@ class MembershipsController < ApplicationController
     @membership.user_id = params[:membership][:user_id]
     @user = User.find_by(params[:id])
     if @membership.save
-      redirect_to project_memberships_path(@project), notice: "#{@user.full_name} was successfully added"
+      redirect_to project_memberships_path(@project), notice: "#{@membership.user.full_name} was successfully added"
     else
       render :index
     end
