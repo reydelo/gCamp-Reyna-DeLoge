@@ -16,15 +16,6 @@ ActiveRecord::Schema.define(version: 20150309211022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "members", force: :cascade do |t|
-    t.string   "email"
-    t.string   "password_digest"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
@@ -35,9 +26,7 @@ ActiveRecord::Schema.define(version: 20150309211022) do
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "name"
+    t.string "name"
   end
 
   create_table "tasks", force: :cascade do |t|

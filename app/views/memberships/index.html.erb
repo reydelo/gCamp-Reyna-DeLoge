@@ -20,7 +20,12 @@
     <div class="form-group">
       <%= f.submit 'Add New Member', class: "btn btn-info" %>
     </div>
+    <% end %>
+  </div>
 
+  <div class="form-inline">
+    <% @project.memberships.each do |membership| %>
+    <%= membership.user.full_name if membership.user %>
     <% end %>
   </div>
 
