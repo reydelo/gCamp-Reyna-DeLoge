@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
     @project = Project.find(params[:project_id])
     @memberships = Membership.all
     @users = User.all
-    @membership = @project.memberships.new
+    @membership = Membership.new
   end
 
   def create
