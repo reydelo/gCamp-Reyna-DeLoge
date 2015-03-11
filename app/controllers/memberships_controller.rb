@@ -20,6 +20,16 @@ class MembershipsController < ApplicationController
     end
   end
 
+  def update
+    @project = Project.find(params[:project_id])
+    @membership = Membership.find(params[:id])
+    if @membership.update(memberships_params)
+      redirect_to project_memberships_path(@project), notice: "#{@membership.user.full_name} was successfully updated"
+    else
+      render :index
+    end
+  end
+
   private
   def memberships_params
     params.require(:membership).permit(:user_id, :project_id, :role)
