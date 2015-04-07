@@ -33,9 +33,15 @@
     <div class="form-group">
       <%= f.collection_select :role, Membership.roles, :first, :first, class: "form-control" %>
     </div>
-    <%= f.submit "Update" %>
+    <div class="form-group">
+      <div class="action">
+        <%= f.submit "Update", class: "btn btn-info" %>
+        <%= link_to "<span class=\"glyphicon glyphicon-remove\"></span>".html_safe, project_membership_path(@project, membership), method: :delete %>
+      </div>
+    </div>
     <% end %>
   </div>
+  <br>
   <% end %>
 
 </div>
