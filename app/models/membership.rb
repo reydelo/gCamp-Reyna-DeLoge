@@ -10,6 +10,8 @@ class Membership < ActiveRecord::Base
     role ||= :membership
   end
 
+  validates :user, presence: true
+  validates :user, uniqueness: true
 
 
 end
