@@ -18,6 +18,8 @@ class TasksController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @task.comments.all
   end
 
   def edit
@@ -57,5 +59,5 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:description, :date, :complete, :project_id)
   end
-  
+
 end
