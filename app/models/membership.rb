@@ -10,8 +10,8 @@ class Membership < ActiveRecord::Base
     role ||= :membership
   end
 
-  validates :user, presence: true
-  validates :user, uniqueness: true
+  validates :user_id, :presence => true
+  validates_uniqueness_of  :user_id, scope: :project_id
 
 
 end

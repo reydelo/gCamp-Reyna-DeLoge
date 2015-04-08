@@ -32,7 +32,7 @@
       <%= link_to membership.user.full_name, user_path(membership.user) if membership.user %>
     </div>
     <div class="form-group">
-      <%= f.collection_select :role, Membership.roles, :first, :first, class: "form-control" %>
+      <%= f.select :role, Membership.roles.keys.map {|role| [role.titleize,role]}, {}, class:"form-control"%>
     </div>
     <div class="form-group">
       <div class="action">
