@@ -4,7 +4,6 @@
     <div class="page-header">
       <div class="pull-right">
         <a class="btn btn-info"<%= link_to 'Edit', edit_project_path %>
-          <a class="btn btn-danger"<%= link_to 'Delete', @project, :method => :delete %>
           </div>
           <h1><%= @project.name %></h1>
         </div>
@@ -13,17 +12,16 @@
           <li><%= link_to 'Projects', projects_path %></li>
           <li class="active"><%= @project.name %></li>
         </ol>
-        <% if @project.tasks.count == 1 %>
-        <%= link_to "#{@project.tasks.count} #{"Task"}", project_tasks_path(@project)  %>
-        <% else %>
-        <%= link_to "#{@project.tasks.count} #{"Tasks"}", project_tasks_path(@project)  %>
-        <% end %>
+        <%= link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project) %>
         <br>
         <br>
-        <% if @project.memberships.count == 1 %>
-        <%= link_to "#{@project.memberships.count} #{"Membership"}", project_memberships_path(@project)  %>
-        <% else %>
-        <%= link_to "#{@project.memberships.count} #{"Memberships"}", project_memberships_path(@project)  %>
-        <% end %>
+        <%= link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project) %>
+        <br>
+        <br>
+        <div class="well">
+          <h3>Delete</h3>
+          <p>Deleting this project will also delete <%= pluralize(@project.memberships.count, "membership") %>, <%= pluralize(@project.tasks.count, "task") %>, and associated comments</p>
+          <%= link_to 'Delete', @project, :method => :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?'} %>
+        </div>
       </div>
     </body>
