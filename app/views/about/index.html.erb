@@ -8,10 +8,12 @@
           <%= image_tag("headphones.jpg", class: "img-responsive") %>
       </div>
       <div class="col-md-8">
-        <p>We are dedicated to the makers, the creators, the risk-takers.</p>
-        <p>We wake up in the middle of the night and furiously write down ideas about how to make your online life better.</p>
-        <p>Human collaboration and communication is what drives us, and it infuses every feature of gCamp.</p>
+        <p>We are dedicated to the makers, the creators, the risk-takers. We wake up in the middle of the night and furiously write down ideas about how to make your online life better.</p>
+        <p>When we're not hard at work, we're hard at play - we're the loud one in the bar, and we're always the ones shutting the place down. Human collaboration and communication is what drives us, and it infuses every feature of gCamp.</p>
       </div>
     </div>
+    <p>gCamp is extremely active.  Check out our killer stats below!</p>
+    <p> <%= "#{@projects.count} Projects, #{@tasks.count} Tasks, #{@memberships.count} Project Members, #{@users.count} Users, #{@comments.count} Comments" %>
+    </p>
   </div>
 </body>
