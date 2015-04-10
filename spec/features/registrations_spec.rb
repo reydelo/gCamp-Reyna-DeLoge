@@ -15,7 +15,7 @@ describe 'User can CRUD registrations/signup' do
     fill_in 'Password', with: 'meow'
     fill_in 'user[password_confirmation]', with: 'meow'
     click_on 'Sign Up'
-    expect(page.current_path).to eq root_path
+    expect(page.current_path).to eq new_project_path
     expect(page).to have_content('Welcome! You have successfully signed up')
 
   end
