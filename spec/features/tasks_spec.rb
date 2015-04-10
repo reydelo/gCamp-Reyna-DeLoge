@@ -50,16 +50,16 @@ describe 'User can CRUD tasks' do
 
   scenario 'Users can show a task' do
 
-    click_on 'Show'
+    click_on "#{@task.description}"
     expect(page).to have_content("#{@task.description}")
-    expect(page).to have_content("#{@task.date.to_s.gsub("-","/")}")
+    expect(page).to have_content("#{@task.date.to_formatted_s(:long)}")
 
   end
 
 
   scenario 'Users can delete a task' do
 
-    click_on 'Delete'
+    page.click_link('', :href => "/projects/#{@task.project_id}/tasks/#{@task.id}")
     expect(page).to have_content('Task was successfully destroyed.')
 
   end

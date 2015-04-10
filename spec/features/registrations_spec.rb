@@ -54,7 +54,7 @@ describe 'User can CRUD registrations/signup' do
     fill_in 'Email', with: "#{@user.email}"
     fill_in 'Password', with: "#{@user.password}"
     click_button 'Login'
-    expect(page.current_path).to eq root_path
+    expect(page.current_path).to eq projects_path
     expect(page).to have_content("Welcome back")
 
   end
@@ -88,7 +88,7 @@ describe 'User can CRUD registrations/signup' do
     fill_in 'Email', with: "#{@user.email}"
     fill_in 'Password', with: "#{@user.password}"
     click_button 'Login'
-    expect(page.current_path).to eq root_path
+    expect(page.current_path).to eq projects_path
     expect(page).to have_content("Welcome back")
     click_on 'Logout'
     expect(page.current_path).to eq root_path
