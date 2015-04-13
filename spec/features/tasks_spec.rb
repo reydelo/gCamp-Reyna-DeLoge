@@ -15,7 +15,7 @@ describe 'User can CRUD tasks' do
     @project = Project.create(name: 'gSchool Demo')
     @task = Task.create(description: 'Go to yoga', date: '2015/03/17', project_id: @project.id)
     task_count = @project.tasks.count
-    click_on 'Projects'
+    visit '/projects'
     click_on "#{@project.name}"
     if task_count == 1
       click_on "#{task_count} Task"

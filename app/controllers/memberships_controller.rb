@@ -5,6 +5,7 @@ class MembershipsController < ApplicationController
   def index
     @membership = @project.memberships.all
     @membership = Membership.new
+    render layout: "internal"
   end
 
   def create

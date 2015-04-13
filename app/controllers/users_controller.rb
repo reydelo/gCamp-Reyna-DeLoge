@@ -9,10 +9,12 @@ class UsersController<ApplicationController
 
   def index
     @users=User.all
+    render layout: "internal"
   end
 
   def new
     @user=User.new
+    render layout: "internal"
   end
 
   def create
@@ -25,9 +27,11 @@ class UsersController<ApplicationController
   end
 
   def show
+    render layout: "internal"
   end
 
   def edit
+    render layout: "internal"
   end
 
   def update
@@ -54,5 +58,5 @@ class UsersController<ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
-  
+
 end

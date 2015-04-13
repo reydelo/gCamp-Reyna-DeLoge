@@ -10,19 +10,23 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @project = Project.find(params[:project_id])
+    render layout: "internal"
   end
 
   def index
     @project = Project.find(params[:project_id])
     @tasks = Task.all
+    render layout: "internal"
   end
 
   def show
     @comment = Comment.new
     @comments = @task.comments.all
+    render layout: "internal"
   end
 
   def edit
+    render layout: "internal"
   end
 
   def create

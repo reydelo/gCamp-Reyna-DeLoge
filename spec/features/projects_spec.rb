@@ -11,12 +11,14 @@ describe 'User can CRUD users' do
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
     @project = Project.create(name: 'gCamp - User 1')
-    click_on 'Projects'
+    visit '/projects'
   end
 
   scenario 'Users can create a project' do
 
-    click_on 'New Project'
+    within ".pull-right" do
+      click_on "New Project"
+    end
     fill_in 'Name', with: 'gDemo - User 1'
     click_on 'Create Project'
     expect(page).to have_content('Project was successfully created.')
@@ -34,9 +36,9 @@ describe 'User can CRUD users' do
 
   scenario 'Users can delete a project' do
 
-  click_on "#{@project.name}"
-  click_on 'Delete'
-  expect(page).to have_content('Project was successfully destroyed')
-end
+    click_on "#{@project.name}"
+    click_on 'Delete'
+    expect(page).to have_content('Project was successfully destroyed')
+  end
 
 end

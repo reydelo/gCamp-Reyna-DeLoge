@@ -8,10 +8,12 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    render layout: "internal"
   end
 
   def new
     @project = Project.new
+    render layout: "internal"
   end
 
   def create
@@ -26,9 +28,11 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    render layout: "internal"
   end
 
   def edit
+    render layout: "internal"
   end
 
   def update

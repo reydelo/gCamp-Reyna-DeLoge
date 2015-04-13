@@ -13,15 +13,25 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="/">gCamp</a>
       </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" style="padding-left: 15px;">
+            <a class="navbar-brand dropdown-toggle" data-toggle="dropdown" type="button" href="#" aria-expanded="true">Projects<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <% current_user.projects.each do |project| %>
+              <li><%= link_to project.name, project_path(project) %></li>
+              <% end %>
+              <li class="divider"></li>
+              <li><%= link_to 'New Project', new_project_path %></li>
+            </ul>
+          </li>
+          <li style="padding-left: 15px;"><a class="navbar-brand" href="/users">Users</a></li>
+        </ul>
+
       <div class="nav navbar-nav navbar-right">
-        <% if current_user %>
         <%= link_to current_user.full_name, user_path(current_user), class: "navbar-brand" %>
         <%= link_to 'Logout', '/logout', class: "navbar-brand" %>
-        <% else %>
-        <%= link_to "Register", '/signup', class: "navbar-brand" %>
-        <%= link_to 'Login', '/login', class: "navbar-brand" %>
-        <% end %>
       </div>
+
     </div>
   </div>
 
@@ -35,35 +45,12 @@
   <%= yield %>
 
   <div class="container">
-    <footer>
-      <div class="row">
-        <div class="col-md-6">
+    <footer id="internal">
           <%= link_to "About", about_path %>
           |
           <%= link_to "Terms", terms_path %>
           |
           <%= link_to "FAQ", faq_path %>
-          <% if current_user %>
-          |
-          <%= link_to "Projects", projects_path %>
-          |
-          <%= link_to "Users", users_path %>
-          <% end %>
-        </div>
-        <div class="col-md-6 text-right">
-          <a href="https://linkedin.com/in/reynadeloge">
-            <%= image_tag("linked_in.jpg", class: "img-footer") %>
-          </a>
-          <a href="https://github.com/reydelo">
-            <%= image_tag("github.png", class: "img-footer") %>
-          </a>
-          <a href="https://twitter.com/rey_deloge">
-            <%= image_tag("twitter.png", class: "img-footer") %>
-          </a>
-          <a href="https://students.gschool.it/cohorts/9/students/221">
-            <%= image_tag("galvanize.png", class: "img-footer") %>
-          </a>
-        </div>
       </footer>
     </div> <!-- /container -->
 
