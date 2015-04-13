@@ -1,11 +1,12 @@
 class MembershipsController < ApplicationController
 
   before_action :set_project, only: [:index, :create, :update, :destroy]
+  before_action :permissions
+  layout "internal"
 
   def index
     @membership = @project.memberships.all
     @membership = Membership.new
-    render layout: "internal"
   end
 
   def create
@@ -44,6 +45,12 @@ class MembershipsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def permissions
+    if current_user.projects.include?(@project) == false
+      redirect_to projects_path, alert: 'You do not have access to that project'
+    end
   end
 
 end

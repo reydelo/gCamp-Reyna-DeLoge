@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   layout "internal"
   before_filter :authenticate
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :permissions, except: [:index, :new, :create]
 
   def authenticate
     redirect_to(signup_path) unless current_user
@@ -27,19 +28,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if current_user.projects.include?(@project)
-      render :show
-    else
-      redirect_to projects_path, alert: 'You do not have access to that project'
-    end
   end
 
   def edit
-    if current_user.projects.include?(@project)
-      render :edit
-    else
-      redirect_to projects_path, alert: 'You do not have access to that project'
-    end
   end
 
   def update
@@ -63,6 +54,12 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name)
+  end
+
+  def permissions
+    if current_user.projects.include?(@project) == false
+      redirect_to projects_path, alert: 'You do not have access to that project'
+    end
   end
 
 end
