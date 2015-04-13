@@ -6,17 +6,20 @@ describe 'User can CRUD tasks' do
 
   before :each do
 
-    User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
+    @user = User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
     @project = Project.create(name: 'gSchool Demo')
+    Membership.create(user_id: @user.id, project_id: @project.id)
     @task = Task.create(description: 'Go to yoga', date: '2015/03/17', project_id: @project.id)
     task_count = @project.tasks.count
     visit '/projects'
-    click_on "#{@project.name}"
+    within "table" do
+      click_on "#{@project.name}"
+    end
     if task_count == 1
       click_on "#{task_count} Task"
     else

@@ -4,13 +4,14 @@ describe 'User can CRUD users' do
 
   before :each do
 
-    User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
+    @user = User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
     @project = Project.create(name: 'gCamp - User 1')
+    Membership.create(user_id: @user.id, project_id: @project.id)
     visit '/projects'
   end
 
@@ -26,7 +27,9 @@ describe 'User can CRUD users' do
 
   scenario 'Users can show/edit a project' do
 
-    click_on "#{@project.name}"
+    within "table" do
+      click_on "#{@project.name}"
+    end
     expect(page).to have_content("#{@project.name}")
     click_on 'Edit'
     fill_in 'Name', with: 'gCamp by Reyna '
@@ -36,7 +39,9 @@ describe 'User can CRUD users' do
 
   scenario 'Users can delete a project' do
 
-    click_on "#{@project.name}"
+    within "table" do
+      click_on "#{@project.name}"
+    end
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed')
   end

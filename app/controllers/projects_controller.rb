@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  layout "internal"
   before_filter :authenticate
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -7,13 +8,11 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
-    render layout: "internal"
+    @projects = current_user.projects.all
   end
 
   def new
     @project = Project.new
-    render layout: "internal"
   end
 
   def create
@@ -28,11 +27,19 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render layout: "internal"
+    if current_user.projects.include?(@project)
+      render :show
+    else
+      redirect_to projects_path, alert: 'You do not have access to that project'
+    end
   end
 
   def edit
-    render layout: "internal"
+    if current_user.projects.include?(@project)
+      render :edit
+    else
+      redirect_to projects_path, alert: 'You do not have access to that project'
+    end
   end
 
   def update
