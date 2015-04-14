@@ -1,10 +1,5 @@
 class UsersController<ApplicationController
-  before_filter :authenticate
-
-  def authenticate
-    redirect_to(signup_path) unless current_user
-  end
-
+  before_action :authenticate
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index

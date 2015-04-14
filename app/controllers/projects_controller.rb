@@ -1,12 +1,8 @@
 class ProjectsController < ApplicationController
   layout "internal"
-  before_filter :authenticate
+  before_action :authenticate
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :permissions, except: [:index, :new, :create]
-
-  def authenticate
-    redirect_to(signup_path) unless current_user
-  end
 
   def index
     @projects = current_user.projects.all

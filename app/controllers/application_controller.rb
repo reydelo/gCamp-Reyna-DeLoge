@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
     redirect_to '/login' unless current_user
   end
 
+  def authenticate
+    session[:previous_url] = request.fullpath
+    redirect_to(login_path) unless current_user
+  end
+
+
 end
