@@ -2,26 +2,30 @@
   <div class="container">
 
     <div class="page-header">
+      <% if current_user.memberships.find_by(project_id: @project.id).role == "owner" %>
       <div class="pull-right">
-        <a class="btn btn-info"<%= link_to 'Edit', edit_project_path %>
-          </div>
-          <h1><%= @project.name %></h1>
-        </div>
-
-        <ol class="breadcrumb">
-          <li><%= link_to 'Projects', projects_path %></li>
-          <li class="active"><%= @project.name %></li>
-        </ol>
-        <%= link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project) %>
-        <br>
-        <br>
-        <%= link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project) %>
-        <br>
-        <br>
-        <div class="well">
-          <h3>Delete</h3>
-          <p>Deleting this project will also delete <%= pluralize(@project.memberships.count, "membership") %>, <%= pluralize(@project.tasks.count, "task") %>, and associated comments</p>
-          <%= link_to 'Delete', @project, :method => :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?'} %>
-        </div>
+        <%= link_to 'Edit', edit_project_path, class: "btn btn-info" %>
       </div>
-    </body>
+      <% end %>
+      <h1><%= @project.name %></h1>
+    </div>
+
+    <ol class="breadcrumb">
+      <li><%= link_to 'Projects', projects_path %></li>
+      <li class="active"><%= @project.name %></li>
+    </ol>
+    <%= link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project) %>
+    <br>
+    <br>
+    <%= link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project) %>
+    <br>
+    <br>
+    <% if current_user.memberships.find_by(project_id: @project.id).role == "owner" %>
+    <div class="well">
+      <h3>Delete</h3>
+      <p>Deleting this project will also delete <%= pluralize(@project.memberships.count, "membership") %>, <%= pluralize(@project.tasks.count, "task") %>, and associated comments</p>
+      <%= link_to 'Delete', @project, :method => :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?'} %>
+    </div>
+    <% end %>
+  </div>
+</body>

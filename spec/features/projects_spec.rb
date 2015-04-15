@@ -11,7 +11,7 @@ describe 'User can CRUD users' do
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
     @project = Project.create(name: 'gCamp - User 1')
-    Membership.create(user_id: @user.id, project_id: @project.id)
+    Membership.create(user_id: @user.id, project_id: @project.id, role: 1)
     visit '/projects'
   end
 
@@ -25,7 +25,7 @@ describe 'User can CRUD users' do
     expect(page).to have_content('Project was successfully created.')
   end
 
-  scenario 'Users can show/edit a project' do
+  scenario 'Users can show a project, and edit project if owner' do
 
     within "table" do
       click_on "#{@project.name}"
@@ -37,7 +37,7 @@ describe 'User can CRUD users' do
     expect(page).to have_content('Project was successfully updated')
   end
 
-  scenario 'Users can delete a project' do
+  scenario 'Users can delete a project if owner' do
 
     within "table" do
       click_on "#{@project.name}"

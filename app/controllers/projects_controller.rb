@@ -27,20 +27,22 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    if current_user.memberships.find_by(project_id: @project.id).role == "member"
+      redirect_to project_path(@project), alert: 'You do not have access'
+    end
   end
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path(@project), notice: 'Project was successfully updated.'
+      redirect_to project_path(@project), notice: 'Project was successfully updated.'
     else
       render :edit
     end
   end
 
   def destroy
-    if @project.destroy
-      redirect_to projects_path, notice: 'Project was successfully destroyed.'
-    end
+    @project.destroy!
+    redirect_to projects_path, notice: 'Project was successfully destroyed.'
   end
 
   private
