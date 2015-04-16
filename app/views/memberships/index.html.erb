@@ -38,7 +38,11 @@
       <div class="form-group">
         <div class="action">
           <%= f.submit "Update", class: "btn btn-info" %>
+          <% if @project.memberships.where(role: 1).count == 1 && membership.role == "owner" %>
+          You are the last owner
+          <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-remove\"></span>".html_safe, project_membership_path(@project, membership), method: :delete %>
+          <% end %>
         </div>
       </div>
       <% end %>

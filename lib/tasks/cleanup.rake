@@ -19,6 +19,16 @@ task :cleanup => :environment do
     end
   end
 
+  task :remove_projects_with_no_members => :environment do
+    desc "Remove any projects with no memberships"
+    Project.all.each do |project|
+      if project.memberships.count == 0
+        puts "Destroying #{project}"
+        project.destroy
+      end
+    end
+  end
+
   task :delete_orphan_tasks => :environment do
     desc "Remove all tasks where their projects have been deleted"
     Task.where(project_id: nil).destroy_all

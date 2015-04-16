@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
 
   before_action :set_project, only: [:index, :create, :update, :destroy]
+  before_action :last_owner, only: [:update, :destroy]
   before_action :permissions
   layout "internal"
 
@@ -45,6 +46,12 @@ class MembershipsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def last_owner
+    if @project.memberships.where(role: 1).count == 1
+      redirect_to project_memberships_path(@project), alert: "Projects must have at least one owner"
+    end
   end
 
   def permissions

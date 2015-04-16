@@ -13,5 +13,4 @@ class Membership < ActiveRecord::Base
   validates :user_id, :presence => true
   validates_uniqueness_of  :user_id, scope: :project_id
 
-
 end
