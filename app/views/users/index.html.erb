@@ -17,12 +17,16 @@
   </thead>
 
   <tbody>
-    <% @users.each do |u| %>
+    <% @users.each do |user| %>
       <tr>
-        <td><%= link_to u.full_name, user_path(u) %></td>
-        <td><%= mail_to u.email %></td>
-        <td class="text-right"><%= link_to 'Edit', edit_user_path(u), class: "btn btn-info" %>
-        <a class="btn btn-danger"<%= link_to 'Delete', u, method: :delete, data: { confirm: 'Are you sure?'} %>
+        <td><%= link_to user.full_name, user_path(user) %></td>
+        <% if current_user.projects.any? { |project| project.users.include?(user) } %>
+        <td><%= mail_to user.email %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td class="text-right"><%= link_to 'Edit', edit_user_path(user), class: "btn btn-info" %>
+        <a class="btn btn-danger"<%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?'} %>
         </td>
       </tr>
     <% end %>

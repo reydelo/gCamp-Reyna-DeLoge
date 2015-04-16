@@ -78,7 +78,6 @@ describe 'User can CRUD registrations/signup' do
     click_button 'Login'
     click_link 'Reyna DeLoge'
     expect(page).to have_content("Reyna DeLoge")
-    expect(page).to have_content("reyna.deloge@gmail.com")
 
   end
 

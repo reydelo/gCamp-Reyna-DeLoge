@@ -18,8 +18,10 @@
         <p><dd><%= @user.first_name %></dd></p>
       <p><dt><strong>Last Name:</strong></dt></p>
         <p><dd><%= @user.last_name %></dd></p>
-      <p><dt><strong>Email:</strong></dt></p>
-        <p><dd><%= mail_to @user.email %></dt></p>
+        <% if current_user.projects.any? { |project| project.users.include?(@user) } %>
+        <p><dt><strong>Email:</strong></dt></p>
+          <p><dd><%= mail_to @user.email %></dt></p>
+        <% end %>
     </dl>
 
   </div>

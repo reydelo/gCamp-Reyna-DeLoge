@@ -48,7 +48,6 @@ describe 'User can CRUD users' do
       click_on "#{@user.first_name} #{@user.last_name}"
     end
     expect(page).to have_content("#{@user.first_name} #{@user.last_name}")
-    expect(page).to have_content("#{@user.email}")
   end
 
   scenario 'Users can delete a user' do
