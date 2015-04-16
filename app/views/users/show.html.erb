@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="page-header">
-      <% if current_user.id == @user.id %>
+      <% if current_user.admin == true || current_user.id == @user.id %>
       <div class="pull-right">
         <%= link_to 'Edit', edit_user_path, class: "btn btn-info" %>
       </div>

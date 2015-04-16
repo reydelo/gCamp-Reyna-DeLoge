@@ -61,7 +61,7 @@ class TasksController < ApplicationController
   end
 
   def permissions
-    unless current_user.projects.include?(project)
+    unless current_user.projects.include?(project) || current_user.admin == true
       redirect_to projects_path, alert: 'You do not have access to that project'
     end
   end
