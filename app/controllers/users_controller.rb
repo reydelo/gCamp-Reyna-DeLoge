@@ -26,7 +26,11 @@ class UsersController<ApplicationController
   end
 
   def edit
-    render layout: "internal"
+    if current_user.id == @user.id
+      render layout: "internal"
+    else
+      render :file => "/public/404.html",  :status => 404
+    end
   end
 
   def update
