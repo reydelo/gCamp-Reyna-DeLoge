@@ -17,7 +17,7 @@
           <li class="dropdown" style="padding-left: 15px;">
             <a class="navbar-brand dropdown-toggle" data-toggle="dropdown" type="button" href="#" aria-expanded="true">Projects<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <% if current_user.admin == true %>
+              <% if admin %>
               <% Project.all.each do |project| %>
               <li><%= link_to project.name, project_path(project) %></li>
               <% end %>

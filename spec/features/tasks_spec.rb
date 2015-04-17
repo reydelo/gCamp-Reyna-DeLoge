@@ -6,14 +6,13 @@ describe 'User can CRUD tasks' do
 
     @user = User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
     @outsider = User.create(email: 'a@rob.com', password: 'password', first_name: 'A', last_name: 'Rob')
-    @member = User.create(email: 'sloppy@joe.com', password: 'password', first_name: 'Sloppy', last_name: 'Joe')
     @project = Project.create(name: 'gSchool Demo')
     Membership.create(user_id: @user.id, project_id: @project.id)
     @task = Task.create(description: 'Go to yoga', date: '2015/03/17', project_id: @project.id)
     visit '/'
     click_on 'Login'
-    fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
-    fill_in 'Password', :with => 'touchdown'
+    fill_in 'Email', :with => "#{@user.email}"
+    fill_in 'Password', :with => "#{@user.password}"
     click_button 'Login'
     task_count = @project.tasks.count
     visit "/projects/#{@project.id}/tasks"
@@ -32,8 +31,8 @@ describe 'User can CRUD tasks' do
 
     click_on 'Logout'
     click_on 'Login'
-    fill_in 'Email', :with => "#{@member.email}"
-    fill_in 'Password', :with => "#{@member.password}"
+    fill_in 'Email', :with => "#{@outsider.email}"
+    fill_in 'Password', :with => "#{@outsider.password}"
     click_button 'Login'
     visit "/projects/#{@project.id}/tasks"
     expect(page.current_path).to eq projects_path

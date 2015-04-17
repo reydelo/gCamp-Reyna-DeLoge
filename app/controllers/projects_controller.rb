@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   before_action :permissions, except: [:index, :new, :create]
 
   def index
-    if current_user.admin == true
+    if admin
       @projects = Project.all
     else
       @projects = current_user.projects.all
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    unless current_user.admin == true || current_user.memberships.find_by(project_id: @project.id).role == "owner"
+    unless admin || current_user.memberships.find_by(project_id: @project.id).role == "owner"
       redirect_to project_path(@project), alert: 'You do not have access'
     end
   end
@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
   end
 
   def permissions
-    if current_user.projects.include?(@project) == false && current_user.admin == false
+    if current_user.projects.include?(@project) == false && admin == false
       redirect_to projects_path, alert: 'You do not have access to that project'
     end
   end

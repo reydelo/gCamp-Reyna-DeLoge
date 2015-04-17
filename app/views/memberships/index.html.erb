@@ -9,7 +9,7 @@
     <li class="active">Memberships</li>
   </ol>
 
-  <% if current_user.admin == true || current_user.memberships.find_by(project_id: @project.id).role == "owner" %>
+  <% if admin || current_user.memberships.find_by(project_id: @project.id).role == "owner" %>
   <div class="well form-inline">
     <%= form_for([@project, @membership]) do |f| %>
     <%= render partial: 'shared/error', locals: {object: @membership} %>
@@ -38,8 +38,8 @@
       <div class="form-group">
         <div class="action">
           <%= f.submit "Update", class: "btn btn-info" %>
-          <% if current_user.admin == true || (@project.memberships.where(role: 1).count == 1 && membership.role == "owner") %>
-          <% if current_user.admin == true && membership.user_id != current_user.id %>
+          <% if admin || (@project.memberships.where(role: 1).count == 1 && membership.role == "owner") %>
+          <% if admin && membership.user_id != current_user.id %>
           <%= membership.user.full_name %> is the last owner
           <% else %>
           You are the last owner

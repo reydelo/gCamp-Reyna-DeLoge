@@ -32,7 +32,7 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership = Membership.find(params[:id])
-    if @membership.destroy && @membership.user_id != current_user.id && current_user.admin == true
+    if @membership.destroy && @membership.user_id != current_user.id && admin
       redirect_to project_memberships_path(@project), notice: "#{@membership.user.full_name} was successfully deleted"
     else
       redirect_to projects_path, notice: "#{@membership.user.full_name} was successfully deleted"
@@ -55,7 +55,7 @@ class MembershipsController < ApplicationController
   end
 
   def permissions
-    unless current_user.projects.include?(@project) || current_user.admin == true
+    unless current_user.projects.include?(@project) || admin
       redirect_to projects_path, alert: 'You do not have access to that project'
     end
   end
