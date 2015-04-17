@@ -5,14 +5,16 @@ describe 'User can CRUD tasks' do
   before :each do
 
     @user = User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
+    @outsider = User.create(email: 'a@rob.com', password: 'password', first_name: 'A', last_name: 'Rob')
+    @member = User.create(email: 'sloppy@joe.com', password: 'password', first_name: 'Sloppy', last_name: 'Joe')
+    @project = Project.create(name: 'gSchool Demo')
+    Membership.create(user_id: @user.id, project_id: @project.id)
+    @task = Task.create(description: 'Go to yoga', date: '2015/03/17', project_id: @project.id)
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => 'aaron.rodgers@gbqb.com'
     fill_in 'Password', :with => 'touchdown'
     click_button 'Login'
-    @project = Project.create(name: 'gSchool Demo')
-    Membership.create(user_id: @user.id, project_id: @project.id)
-    @task = Task.create(description: 'Go to yoga', date: '2015/03/17', project_id: @project.id)
     task_count = @project.tasks.count
     visit "/projects/#{@project.id}/tasks"
   end
@@ -24,6 +26,24 @@ describe 'User can CRUD tasks' do
     click_button 'Create Task'
     expect(page).to have_content('Task was successfully created.')
     expect(page).to have_content('Get your shit done!')
+  end
+
+  scenario 'Outsiders cannot view/edit a task if not a project member' do
+
+    click_on 'Logout'
+    click_on 'Login'
+    fill_in 'Email', :with => "#{@member.email}"
+    fill_in 'Password', :with => "#{@member.password}"
+    click_button 'Login'
+    visit "/projects/#{@project.id}/tasks"
+    expect(page.current_path).to eq projects_path
+    expect(page).to have_content('You do not have access to that project')
+    visit "/projects/#{@project.id}/tasks/#{@task.id}"
+    expect(page.current_path).to eq projects_path
+    expect(page).to have_content('You do not have access to that project')
+    visit "/projects/#{@project.id}/tasks/#{@task.id}/edit"
+    expect(page.current_path).to eq projects_path
+    expect(page).to have_content('You do not have access to that project')
   end
 
   scenario 'Users can edit a task' do

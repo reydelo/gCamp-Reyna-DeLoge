@@ -5,13 +5,17 @@ describe 'User can CRUD Projects' do
   before :each do
 
     @user = User.create(email: 'aaron.rodgers@gbqb.com', password: 'touchdown', first_name: 'Aaron', last_name: 'Rodgers')
+    @outsider = User.create(email: 'a@rob.com', password: 'password', first_name: 'A', last_name: 'Rob')
+    @member = User.create(email: 'sloppy@joe.com', password: 'password', first_name: 'Sloppy', last_name: 'Joe')
+    @project = Project.create(name: 'gCamp - User 1')
+    @admin = User.create(email: 'admin@email.com', password: 'password', first_name: 'Admin', last_name: 'User', admin: true)
+    Membership.create(user_id: @user.id, project_id: @project.id, role: 1)
+    Membership.create(user_id: @member.id, project_id: @project.id, role: 0)
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => "#{@user.email}"
     fill_in 'Password', :with => "#{@user.password}"
     click_button 'Login'
-    @project = Project.create(name: 'gCamp - User 1')
-    Membership.create(user_id: @user.id, project_id: @project.id, role: 1)
     visit '/projects'
   end
 
@@ -37,6 +41,33 @@ describe 'User can CRUD Projects' do
     expect(page).to have_content('Project was successfully updated')
   end
 
+  scenario 'User cannot edit a project if not a member' do
+
+    click_on 'Logout'
+    click_on 'Login'
+    fill_in 'Email', :with => "#{@member.email}"
+    fill_in 'Password', :with => "#{@member.password}"
+    click_button 'Login'
+    visit "/projects/#{@project.id}/edit"
+    expect(page.current_path).to eq project_path(@project)
+    expect(page).to have_content('You do not have access')
+  end
+
+  scenario 'outsider cannot view/edit other projects' do
+
+    click_on 'Logout'
+    click_on 'Login'
+    fill_in 'Email', :with => "#{@outsider.email}"
+    fill_in 'Password', :with => "#{@outsider.password}"
+    click_button 'Login'
+    visit "/projects/#{@project.id}"
+    expect(page.current_path).to eq projects_path
+    expect(page).to have_content('You do not have access to that project')
+    visit "/projects/#{@project.id}/edit"
+    expect(page.current_path).to eq projects_path
+    expect(page).to have_content('You do not have access to that project')
+  end
+
   scenario 'Users can delete a project if owner' do
 
     within "table" do
@@ -49,11 +80,10 @@ describe 'User can CRUD Projects' do
   scenario 'Admin user can CRUD projects' do
 
     click_on 'Logout'
-    admin = User.create(email: 'admin@email.com', password: 'password', first_name: 'Admin', last_name: 'User', admin: true)
     visit '/'
     click_on 'Login'
-    fill_in 'Email', :with => "#{admin.email}"
-    fill_in 'Password', :with => "#{admin.password}"
+    fill_in 'Email', :with => "#{@admin.email}"
+    fill_in 'Password', :with => "#{@admin.password}"
     click_button 'Login'
 
     visit '/projects'
@@ -83,7 +113,6 @@ describe 'User can CRUD Projects' do
     end
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed')
-
   end
 
 end

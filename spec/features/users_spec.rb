@@ -5,6 +5,7 @@ describe 'User can CRUD users' do
   before :each do
 
     @user = User.create(email: 'yeezus@god.com', password: 'godeqlye', first_name: 'Kanye', last_name: 'West')
+    @member = User.create(email: 'sloppy@joe.com', password: 'password', first_name: 'Sloppy', last_name: 'Joe')
     visit '/'
     click_on 'Login'
     fill_in 'Email', :with => "#{@user.email}"
@@ -26,16 +27,22 @@ describe 'User can CRUD users' do
     expect(page).to have_content('Basil Oriegano')
   end
 
-  scenario 'Users can edit a user' do
+  scenario 'Users can edit themselves ' do
 
-    click_on 'Edit'
-    fill_in 'First name', with: 'Basil'
-    fill_in 'Last name', with: 'Oriegano'
-    fill_in 'Password', with: 'mew'
-    fill_in 'user[password_confirmation]', with: 'mew'
+    visit "/users/#{@user.id}/edit"
+    fill_in 'First name', with: 'Kanye Omari'
+    fill_in 'Last name', with: 'West'
+    fill_in 'Password', with: 'humbleye'
+    fill_in 'user[password_confirmation]', with: 'humbleye'
     click_button 'Update User'
     expect(page).to have_content('User was successfully updated.')
-    expect(page).to have_content('Basil Oriegano')
+    expect(page).to have_content("#{@user.first_name}")
+  end
+
+  scenario 'User cannot edit another user' do
+
+    visit "/users/#{@member.id}/edit"
+    expect(page).to have_content("The page you were looking for doesn't exist.")
   end
 
   scenario 'Users can show a user' do
@@ -46,7 +53,7 @@ describe 'User can CRUD users' do
     expect(page).to have_content("#{@user.first_name} #{@user.last_name}")
   end
 
-  scenario 'Users can delete a user' do
+  scenario 'Users can delete a themselves' do
 
     within(:table) do
       click_on "#{@user.first_name} #{@user.last_name}"
